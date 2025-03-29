@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox as mb
 from PIL import Image, ImageTk
 import random
 
@@ -36,10 +37,17 @@ def verifie_valeur(x):
         if 1 <= x <= 6:
             return x
         else:
-            label0.config(text="Veuillez choisir un nombre entre 1 et 6", fg="#ff0000", font=("Consolas", 14, "bold"))
+            mb.showerror("Erreur", "Veuillez saisir un nombre comprise entre 1 et 6")
     else:
-        label0.config(text="Saisie invalide, entrez un nombre entre 1 et 6", fg="#ff0000", font=("Consolas", 14, "bold"))
+        mb.showerror("Erreur", "Veuillez saisir un nombre entier")
     return None
+
+def quit_ask():
+    choice = mb.askyesno("Quitter", "Voulez-vous vraiment quitter le jeu ?")
+    if choice:
+        fenetre.destroy()
+    else:
+        pass     
 
 def lancer():
     nombre = verifie_valeur(champ.get())
@@ -60,7 +68,7 @@ label.place(relx=0.5, y=330, anchor="center", width=350, height=350)
 bouttonLancer = Button(fenetre, text="Lancer", command=lancer)
 bouttonLancer.place(relx=0.3, y=650, anchor="center", width=100)
 
-bouttonQuit = Button(fenetre, text="Quitter", command=fenetre.quit)
+bouttonQuit = Button(fenetre, text="Quitter", command=quit_ask)
 bouttonQuit.place(relx=0.7, y=650, anchor="center", width=100)
 
 fenetre.mainloop()
